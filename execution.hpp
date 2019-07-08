@@ -33,7 +33,7 @@ class Execution {
 				case LW:
 				case LH: 
         case LHU:
-				case LH: inst.src1 = inst.src1 + sgnextend(inst.imm, 11); break;
+				case LBU: inst.src1 = inst.src1 + sgnextend(inst.imm, 11); break;
 				case SB:
 				case SW:
 				case SH: inst.src1 = inst.src1 + sgnextend(inst.imm, 11); break;

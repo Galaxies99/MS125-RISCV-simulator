@@ -1,5 +1,6 @@
 # include "register.hpp"
 # include "tools.hpp"
+# include "instruction.hpp" 
 
 # ifndef _WRITEBACK_
 	# define _WRITEBACK_
