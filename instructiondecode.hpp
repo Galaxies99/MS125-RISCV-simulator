@@ -33,17 +33,17 @@ class InstructionDecode {
 			switch(inst.type) {
 				case AUIPC:
 					if(reg -> usedpc) return false;
-					inst.src1 = reg -> getpc() - 4;
+					inst.src1 = reg -> getpc();
 					break;
 				case JAL:
 					if(reg -> usedpc) return false;
-					inst.src1 = reg -> getpc() - 4;
+					inst.src1 = reg -> getpc();
 					break;
 				case JALR:
 					if(inst.rs1 && reg -> used[inst.rs1]) return false;
 					if(reg -> usedpc) return false;
 					inst.src1 = getReg(inst.rs1);
-					inst.src2 = reg -> getpc();
+					inst.result = reg -> getpc();
 					break;
 				case BEQ:
 				case BNE:

@@ -20,15 +20,16 @@ class Execution {
 		void go() {
 			if(inst.type == EMPTY) return ;
 			switch(inst.type) {
-				case AUIPC: inst.result = inst.src1 + inst.imm; break;
-				case JAL: inst.result = inst.src1 + inst.imm; break;
-				case JALR: inst.result = inst.src1 + inst.imm; inst.result = setlowzero(inst.result); break;
-				case BEQ: inst.result = static_cast <uint> (inst.src1 == inst.src2); break;
-				case BNE: inst.result = static_cast <uint> (inst.src1 != inst.src2); break;
-				case BLTU: inst.result = static_cast <uint> (inst.src1 < inst.src2); break;
-				case BGEU: inst.result = static_cast <uint> (inst.src1 >= inst.src2); break;
-				case BLT: inst.result = static_cast <uint> ((int)inst.src1 < (int)inst.src2); break;
-				case BGE: inst.result = static_cast <uint> ((int)inst.src1 >= (int)inst.src2); break;
+			  case LUI: inst.result = inst.imm; break;
+				case AUIPC: inst.result = inst.src1 - 4 + inst.imm; break;
+				case JAL: inst.resultpc = inst.src1 - 4 + inst.imm; inst.result = inst.src1; break;
+				case JALR: inst.resultpc = inst.src1 + inst.imm; inst.resultpc = setlowzero(inst.resultpc); break;
+				case BEQ: inst.result = static_cast <uint> (inst.src1 == inst.src2); inst.resultpc = inst.rd - 4 + inst.imm; break;
+				case BNE: inst.result = static_cast <uint> (inst.src1 != inst.src2); inst.resultpc = inst.rd - 4 + inst.imm; break;
+				case BLTU: inst.result = static_cast <uint> (inst.src1 < inst.src2); inst.resultpc = inst.rd - 4 + inst.imm; break;
+				case BGEU: inst.result = static_cast <uint> (inst.src1 >= inst.src2); inst.resultpc = inst.rd - 4 + inst.imm; break;
+				case BLT: inst.result = static_cast <uint> ((int)inst.src1 < (int)inst.src2); inst.resultpc = inst.rd - 4 + inst.imm; break;
+				case BGE: inst.result = static_cast <uint> ((int)inst.src1 >= (int)inst.src2); inst.resultpc = inst.rd - 4 + inst.imm; break;
 				case LB:
 				case LW:
 				case LH: 

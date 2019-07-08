@@ -20,19 +20,10 @@ class WriteBack {
 		void go() {
 			if(inst.type == ERR) return ;
 			switch(inst.type) {
-				case LUI:
-					reg -> set(inst.rd, inst.imm);
-					break;
-				case AUIPC:
-					reg -> set(inst.rd, inst.result);
-					break;
 				case JAL:
-					reg -> set(inst.rd, inst.src1 + 4);
-					reg -> setpc(inst.result);
-					break;
 				case JALR:
-					reg -> set(inst.rd, inst.src2);
-					reg -> setpc(inst.result);
+					reg -> set(inst.rd, inst.result);
+					reg -> setpc(inst.resultpc);
 					break;
 				case BEQ:
 				case BNE:
@@ -40,32 +31,24 @@ class WriteBack {
 				case BLTU:
 				case BGE:
 				case BGEU:
-					if(inst.result) reg -> setpc(inst.rd - 4 + inst.imm);
+					if(inst.result) reg -> setpc(inst.resultpc);
 					break;
+				case LUI:
+				case AUIPC:
 				case LB:
 				case LW:
 				case LH:
 				case LBU:
 				case LHU:
-					reg -> set(inst.rd, inst.result);
-					break;
 				case ADDI:
-					reg -> set(inst.rd, inst.result);
-					break;
 				case SLTI:
 				case SLTIU:
-					reg -> set(inst.rd, inst.result);
-					break;
 				case ANDI:
 				case ORI:
 				case XORI:
-					reg -> set(inst.rd, inst.result);
-					break;
 				case SLLI:
 				case SRLI:
 				case SRAI:
-					reg -> set(inst.rd, inst.result);
-					break;
 				case ADD:
 				case SUB:
 				case SLL:

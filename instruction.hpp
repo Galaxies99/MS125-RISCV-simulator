@@ -12,6 +12,7 @@ class Instruction {
 
 		uint src1, src2;
 		uint result;
+		uint resultpc; 
 
 		Instruction() {
 			initialize();
