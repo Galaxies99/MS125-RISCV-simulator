@@ -8,7 +8,7 @@
 using namespace std;
 
 memory mem;
-RISCV riscv(&mem, Pararrel);
+RISCV riscv(&mem, Serial);
 
 int main() { 
 	mem.loadFromDisk();
