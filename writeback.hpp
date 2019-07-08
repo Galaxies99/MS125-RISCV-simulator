@@ -68,20 +68,8 @@ class WriteBack {
 
 		void dellock() {
 			switch(inst.type) {
-				case LUI:
-					reg -> used[inst.rd] --;
-					break;
-				case AUIPC:
-					reg -> used[inst.rd] --;
-					break;
 				case JAL:
-					reg -> used[inst.rd] --;
-					reg -> usedpc --;
-					break;
 				case JALR:
-					reg -> used[inst.rd] --;
-					reg -> usedpc --;
-					break;
 				case BEQ:
 				case BNE:
 				case BLT:
@@ -89,42 +77,6 @@ class WriteBack {
 				case BGE:
 				case BGEU:
 					reg -> usedpc --;
-					break;
-				case LB:
-				case LW:
-				case LH:
-				case LBU:
-				case LHU:
-					reg -> used[inst.rd] --;
-					break;
-				case ADDI:
-					reg -> used[inst.rd] --;
-					break;
-				case SLTI:
-				case SLTIU:
-					reg -> used[inst.rd] --;
-					break;
-				case ANDI:
-				case ORI:
-				case XORI:
-					reg -> used[inst.rd] --;
-					break;
-				case SLLI:
-				case SRLI:
-				case SRAI:
-					reg -> used[inst.rd] --;
-					break;
-				case ADD:
-				case SUB:
-				case SLL:
-				case SLT:
-				case SLTU:
-				case XOR:
-				case SRL:
-				case SRA:
-				case OR:
-				case AND:
-					reg -> used[inst.rd] --;
 					break;
 				default: break;
 			}

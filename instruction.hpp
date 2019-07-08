@@ -21,7 +21,7 @@ class Instruction {
 		void initialize() {
 			com = rs1 = rs2 = rd = imm = 0;
 			src1 = src2 = 0;
-			result = 0;
+			result = 0; resultpc = 0;
 		}
 
 		void getType() {

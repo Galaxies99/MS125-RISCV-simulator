@@ -10,7 +10,7 @@ using namespace std;
 memory mem;
 RISCV riscv(&mem, Pararrel);
 
-int main() { 
+int main() {
 	mem.loadFromDisk();
 	riscv.run();
 	cout << riscv.output() << endl;

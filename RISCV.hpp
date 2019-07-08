@@ -1,4 +1,5 @@
 # include "type.hpp"
+# include "forward.hpp"
 # include "tools.hpp"
 # include "instruction.hpp"
 # include "memory.hpp"
@@ -24,13 +25,17 @@
 			pipelineType type;
 
 			void pararrel() {
-				while(1) {
+				int cnt = 0;
+        while(1) {
 					WB.go();
 					MA.go();
+					Forward(MA, EX);
 					EX.go();
 					ID.go();
-					if(!ID.lock) IF.go();
-					if(mem -> isEnd()) break;
+					if(!ID.lock) Forward(MA, ID);
+					if(!ID.lock) Forward(EX, ID);
+					if(!ID.lock) IF.go();				
+          if(mem -> isEnd()) break;
 					MA.pass(WB);
 					EX.pass(MA);
 					ID.pass(EX);
