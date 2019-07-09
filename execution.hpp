@@ -23,12 +23,6 @@ class Execution {
 				case LUI: inst.result = inst.imm; break;
 				case AUIPC: inst.result = inst.src1 - 4 + inst.imm; break;
 				case JALR: inst.resultpc = inst.src1 + inst.imm; inst.resultpc = setlowzero(inst.resultpc); break;
-				case BEQ: inst.result = static_cast <uint> (inst.src1 == inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;
-				case BNE: inst.result = static_cast <uint> (inst.src1 != inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;
-				case BLTU: inst.result = static_cast <uint> (inst.src1 < inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;
-				case BGEU: inst.result = static_cast <uint> (inst.src1 >= inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;
-				case BLT: inst.result = static_cast <uint> ((int)inst.src1 < (int)inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;
-				case BGE: inst.result = static_cast <uint> ((int)inst.src1 >= (int)inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;
 				case LB:
 				case LW:
 				case LH:

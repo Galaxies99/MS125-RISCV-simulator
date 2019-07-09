@@ -107,12 +107,6 @@ class InstructionDecode {
 		void putlock() {
 			switch(inst.type) {
 				case JALR:
-				case BEQ:
-				case BNE:
-				case BLT:
-				case BLTU:
-				case BGE:
-				case BGEU:
 					reg -> usedpc ++;
 					break;
 				default: break;

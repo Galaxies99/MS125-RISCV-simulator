@@ -32,15 +32,40 @@
 					Forward(MA, EX);
 					EX.go();
 					ID.go();
-					if(!ID.lock) Forward(MA, ID);
-					if(!ID.lock) Forward(EX, ID);
-					if(ID.inst.type == JAL && !ID.lock) {
-						reg.set(ID.inst.rd, ID.inst.src1);
-						reg.setpc(ID.inst.imm + ID.inst.src1 - 4);
-						ID.inst.type = ERR;
+					if(!ID.lock) {
+            Forward(MA, ID);
+					  Forward(EX, ID);
+					  switch(ID.inst.type) {
+					    case JAL: 
+					      reg.set(ID.inst.rd, ID.inst.src1);
+					      ID.inst.result = 1;
+					      ID.inst.resultpc = ID.inst.src1;
+                break;
+              case BEQ: ID.inst.result = static_cast <uint> (ID.inst.src1 == ID.inst.src2); break;
+				      case BNE: ID.inst.result = static_cast <uint> (ID.inst.src1 != ID.inst.src2); break;
+				      case BLTU: ID.inst.result = static_cast <uint> (ID.inst.src1 < ID.inst.src2); break;
+				      case BGEU: ID.inst.result = static_cast <uint> (ID.inst.src1 >= ID.inst.src2); break;
+				      case BLT: ID.inst.result = static_cast <uint> ((int)ID.inst.src1 < (int)ID.inst.src2); break;
+				      case BGE: ID.inst.result = static_cast <uint> ((int)ID.inst.src1 >= (int)ID.inst.src2); break;
+				      default: break;
+            }
+						switch(ID.inst.type) {
+						  case JAL:
+						  case BEQ:
+						  case BNE:
+						  case BLTU:
+						  case BGEU:
+						  case BLT:
+						  case BGE:
+						    if(ID.inst.result) {
+                  reg.setpc(ID.inst.resultpc - 4 + ID.inst.imm);
+                  ID.inst.type = ERR;
+                }
+                break;
+              default: break;
+            }
 					}
 					if(!ID.lock) IF.go();
-
           if(mem -> isEnd()) break;
 					MA.pass(WB);
 					EX.pass(MA);

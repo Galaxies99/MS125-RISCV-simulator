@@ -24,14 +24,6 @@ class WriteBack {
 					reg -> set(inst.rd, inst.result);
 					reg -> setpc(inst.resultpc);
 					break;
-				case BEQ:
-				case BNE:
-				case BLT:
-				case BLTU:
-				case BGE:
-				case BGEU:
-					if(inst.result) reg -> setpc(inst.resultpc);
-					break;
 				case LUI:
 				case AUIPC:
 				case LB:
@@ -68,12 +60,6 @@ class WriteBack {
 		void dellock() {
 			switch(inst.type) {
 				case JALR:
-				case BEQ:
-				case BNE:
-				case BLT:
-				case BLTU:
-				case BGE:
-				case BGEU:
 					reg -> usedpc --;
 					break;
 				default: break;
