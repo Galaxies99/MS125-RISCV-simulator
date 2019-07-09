@@ -68,7 +68,6 @@ class WriteBack {
 
 		void dellock() {
 			switch(inst.type) {
-				case JAL:
 				case JALR:
 				case BEQ:
 				case BNE:

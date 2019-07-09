@@ -34,7 +34,13 @@
 					ID.go();
 					if(!ID.lock) Forward(MA, ID);
 					if(!ID.lock) Forward(EX, ID);
-					if(!ID.lock) IF.go();				
+					if(ID.inst.type == JAL && !ID.lock) {
+						reg.set(ID.inst.rd, ID.inst.src1);
+						reg.setpc(ID.inst.imm + ID.inst.src1 - 4);
+						ID.inst.type = ERR;
+					}
+					if(!ID.lock) IF.go();
+
           if(mem -> isEnd()) break;
 					MA.pass(WB);
 					EX.pass(MA);

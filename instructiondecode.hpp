@@ -106,7 +106,6 @@ class InstructionDecode {
 
 		void putlock() {
 			switch(inst.type) {
-				case JAL:
 				case JALR:
 				case BEQ:
 				case BNE:
