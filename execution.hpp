@@ -22,7 +22,6 @@ class Execution {
 			switch(inst.type) {
 				case LUI: inst.result = inst.imm; break;
 				case AUIPC: inst.result = inst.src1 - 4 + inst.imm; break;
-				case JAL: inst.resultpc = inst.src1 - 4 + inst.imm; inst.result = inst.src1; break;
 				case JALR: inst.resultpc = inst.src1 + inst.imm; inst.resultpc = setlowzero(inst.resultpc); break;
 				case BEQ: inst.result = static_cast <uint> (inst.src1 == inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;
 				case BNE: inst.result = static_cast <uint> (inst.src1 != inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;

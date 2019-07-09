@@ -20,7 +20,6 @@ class WriteBack {
 		void go() {
 			if(inst.type == ERR) return ;
 			switch(inst.type) {
-				case JAL:
 				case JALR:
 					reg -> set(inst.rd, inst.result);
 					reg -> setpc(inst.resultpc);
