@@ -13,6 +13,7 @@ class Instruction {
 		uint src1, src2;
 		uint result;
 		uint resultpc; 
+		uint pred;
 
 		Instruction() {
 			initialize();
@@ -20,7 +21,7 @@ class Instruction {
 
 		void initialize() {
 			com = rs1 = rs2 = rd = imm = 0;
-			src1 = src2 = 0;
+			src1 = src2 = 0; pred = 0;
 			result = 0; resultpc = 0;
 		}
 

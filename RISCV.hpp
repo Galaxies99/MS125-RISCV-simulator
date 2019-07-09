@@ -9,6 +9,7 @@
 # include "execution.hpp"
 # include "memoryaccess.hpp"
 # include "writeback.hpp"
+# include "prediction.hpp"
 
 # ifndef _RISCV_HPP_
 	# define _RISCV_HPP_
@@ -23,6 +24,7 @@
 			MemoryAccess MA;
 			WriteBack WB;
 			pipelineType type;
+			globalPrediction glb;
 
 			void pararrel() {
 				int cnt = 0;
@@ -66,7 +68,7 @@
 			}
 
 		public:
-			RISCV (memory *_mem, pipelineType _type) : reg(0, _mem), IF(&reg), ID(&reg), EX(&reg), MA(&reg), WB(&reg) { mem = _mem; type = _type; }
+			RISCV (memory *_mem, pipelineType _type) : reg(0, _mem), glb(), IF(&reg), ID(&reg, &glb), EX(&reg, &glb), MA(&reg), WB(&reg) { mem = _mem; type = _type; }
 
 			void run() {
 				if(type == Pararrel) pararrel();
@@ -74,6 +76,7 @@
 			}
 
 			uint output() {
+			  glb.out();
 				return ((reg.get(10)) & 255u);
 			}
 	};

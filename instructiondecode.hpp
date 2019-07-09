@@ -1,5 +1,6 @@
 # include "execution.hpp"
 # include "register.hpp"
+# include "prediction.hpp"
 
 # ifndef _INSTRUCTIONDECODE_
 	# define _INSTRUCTIONDECODE_
@@ -8,14 +9,16 @@ class InstructionDecode {
 		friend class RISCV;
 	private:
 		Register *reg;
+		globalPrediction *glb;
 
 	public:
 		Instruction inst;
 		bool lock;
 
-		InstructionDecode(Register *_reg) {
+		InstructionDecode(Register *_reg, globalPrediction *_glb) {
 			lock = 0;
 			reg = _reg;
+			glb = _glb;
 		}
 
 		void go() {
@@ -32,7 +35,8 @@ class InstructionDecode {
     
     void prediction() {
       if(inst.type == BEQ || inst.type == BNE || inst.type == BGE || inst.type == BLT || inst.type == BGEU || inst.type == BLTU) {
-        reg -> setpc(inst.resultpc - 4 + inst.imm);
+        inst.pred = glb -> getPrediction(inst.type);
+        if(inst.pred) reg -> setpc(inst.resultpc - 4 + inst.imm);
       }
     }
     

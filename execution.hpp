@@ -1,6 +1,7 @@
 # include "memoryaccess.hpp"
 # include "register.hpp"
 # include "tools.hpp"
+# include "prediction.hpp"
 
 # ifndef _EXECUTION_
 	# define _EXECUTION_
@@ -9,12 +10,14 @@ class Execution {
 		friend class RISCV;
 	private:
 		Register *reg;
+		globalPrediction *glb;
 
 	public:
 		Instruction inst;
 
-		Execution(Register *_reg) {
+		Execution(Register *_reg, globalPrediction *_glb) {
 			reg = _reg;
+			glb = _glb;
 		}
 
 		void go() {
@@ -62,10 +65,12 @@ class Execution {
 		
     bool check() {
       if(inst.type == BEQ || inst.type == BNE || inst.type == BGE || inst.type == BLT || inst.type == BGEU || inst.type == BLTU) {
-        if(inst.result == 0) {
-          reg -> setpc(inst.resultpc);
+        if(inst.pred != inst.result) {
+          glb -> addResult(inst.type, inst.result, 0);
+          if(inst.pred == 0) reg -> setpc(inst.resultpc - 4 + inst.imm);
+          else reg -> setpc(inst.resultpc);
           return false;
-        }
+        } else glb -> addResult(inst.type, inst.result, 1);
         return true;
       }
       return true;
