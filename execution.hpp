@@ -20,7 +20,7 @@ class Execution {
 		void go() {
 			if(inst.type == ERR) return ;
 			switch(inst.type) {
-			  case LUI: inst.result = inst.imm; break;
+				case LUI: inst.result = inst.imm; break;
 				case AUIPC: inst.result = inst.src1 - 4 + inst.imm; break;
 				case JAL: inst.resultpc = inst.src1 - 4 + inst.imm; inst.result = inst.src1; break;
 				case JALR: inst.resultpc = inst.src1 + inst.imm; inst.resultpc = setlowzero(inst.resultpc); break;
@@ -32,8 +32,8 @@ class Execution {
 				case BGE: inst.result = static_cast <uint> ((int)inst.src1 >= (int)inst.src2); inst.resultpc = inst.resultpc - 4 + inst.imm; break;
 				case LB:
 				case LW:
-				case LH: 
-        case LHU:
+				case LH:
+				case LHU:
 				case LBU: inst.src1 = inst.src1 + sgnextend(inst.imm, 11); break;
 				case SB:
 				case SW:
