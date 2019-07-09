@@ -24,8 +24,22 @@ class InstructionDecode {
 			inst.getType();
 			inst.getArg();
 			if(!getTrueArg()) lock = 1;
-			else putlock();
-		}
+			else {
+			  prediction();  
+        putlock();
+		  }
+    }
+    
+    void prediction() {
+      if(inst.type == BEQ || inst.type == BNE || inst.type == BGE || inst.type == BLT || inst.type == BGEU || inst.type == BLTU) {
+        reg -> setpc(inst.resultpc - 4 + inst.imm);
+      }
+    }
+    
+    void reget() {
+			inst.initialize();
+			inst.com = reg -> getinst();
+    }
 
 		uint getReg(uint pos) {return reg -> get(pos);}
 
@@ -107,6 +121,7 @@ class InstructionDecode {
 		void putlock() {
 			switch(inst.type) {
 				case JALR:
+//				case BEQ: case BNE: case BLT: case BGE: case BLTU: case BGEU:
 					reg -> usedpc ++;
 					break;
 				default: break;

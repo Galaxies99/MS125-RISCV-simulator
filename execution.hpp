@@ -23,6 +23,12 @@ class Execution {
 				case LUI: inst.result = inst.imm; break;
 				case AUIPC: inst.result = inst.src1 - 4 + inst.imm; break;
 				case JALR: inst.resultpc = inst.src1 + inst.imm; inst.resultpc = setlowzero(inst.resultpc); break;
+				case BEQ: inst.result = static_cast <uint> (inst.src1 == inst.src2); break;
+				case BNE: inst.result = static_cast <uint> (inst.src1 != inst.src2); break;
+			  case BLTU: inst.result = static_cast <uint> (inst.src1 < inst.src2); break;
+				case BGEU: inst.result = static_cast <uint> (inst.src1 >= inst.src2); break;
+				case BLT: inst.result = static_cast <uint> ((int)inst.src1 < (int)inst.src2); break;
+			  case BGE: inst.result = static_cast <uint> ((int)inst.src1 >= (int)inst.src2); break;
 				case LB:
 				case LW:
 				case LH:
@@ -53,8 +59,19 @@ class Execution {
 				default: break;
 			}
 		}
-
-		void pass(MemoryAccess &nxt) {
+		
+    bool check() {
+      if(inst.type == BEQ || inst.type == BNE || inst.type == BGE || inst.type == BLT || inst.type == BGEU || inst.type == BLTU) {
+        if(inst.result == 0) {
+          reg -> setpc(inst.resultpc);
+          return false;
+        }
+        return true;
+      }
+      return true;
+    }
+		
+    void pass(MemoryAccess &nxt) {
 			nxt.inst = inst;
 		}
 };
