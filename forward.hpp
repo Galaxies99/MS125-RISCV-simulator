@@ -7,29 +7,29 @@
   
 void Forward(Execution &EX, InstructionDecode &ID) {
   switch(EX.inst.type) {
-  	case LUI:
-		case AUIPC:
+    case LUI:
+    case AUIPC:
     case JAL:
     case JALR:
     case ADDI:
-		case SLTI:
-		case SLTIU:
-		case ANDI:
-		case ORI:
-		case XORI:
-		case SLLI:
-		case SRLI:
-		case SRAI:
-		case ADD:
-		case SUB:
-		case SLL:
-		case SLT:
-		case SLTU:
-		case XOR:
-		case SRL:
-		case SRA:
-		case OR:
-		case AND:
+    case SLTI:
+    case SLTIU:
+    case ANDI:
+    case ORI:
+    case XORI:
+    case SLLI:
+    case SRLI:
+    case SRAI:
+    case ADD:
+    case SUB:
+    case SLL:
+    case SLT:
+    case SLTU:
+    case XOR:
+    case SRL:
+    case SRA:
+    case OR:
+    case AND:
 			if(ID.inst.rs1 == EX.inst.rd && ID.inst.rs1 != 0)
 				ID.inst.src1 = EX.inst.result;
 			if(ID.inst.rs2 == EX.inst.rd && ID.inst.rs2 != 0)
@@ -41,34 +41,34 @@ void Forward(Execution &EX, InstructionDecode &ID) {
   
 void Forward(MemoryAccess &MA, InstructionDecode &ID) {
   switch(MA.inst.type) {
-  	case LUI:
-		case AUIPC:
+    case LUI:
+    case AUIPC:
     case JAL:
     case JALR:
-		case LB:
-		case LW:
-		case LH:
-		case LBU:
-		case LHU:
+    case LB:
+    case LW:
+    case LH:
+    case LBU:
+    case LHU:
     case ADDI:
-		case SLTI:
-		case SLTIU:
-		case ANDI:
-		case ORI:
-		case XORI:
-		case SLLI:
-		case SRLI:
-		case SRAI:
-		case ADD:
-		case SUB:
-		case SLL:
-		case SLT:
-		case SLTU:
-		case XOR:
-		case SRL:
-		case SRA:
-		case OR:
-		case AND:
+    case SLTI:
+    case SLTIU:
+    case ANDI:
+    case ORI:
+    case XORI:
+    case SLLI:
+    case SRLI:
+    case SRAI:
+    case ADD:
+    case SUB:
+    case SLL:
+    case SLT:
+    case SLTU:
+    case XOR:
+    case SRL:
+    case SRA:
+    case OR:
+    case AND:
 			if(ID.inst.rs1 == MA.inst.rd && ID.inst.rs1 != 0)
 				ID.inst.src1 = MA.inst.result;
 			if(ID.inst.rs2 == MA.inst.rd && ID.inst.rs2 != 0)
