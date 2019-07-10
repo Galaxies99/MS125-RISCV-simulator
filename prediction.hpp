@@ -1,11 +1,11 @@
-# include <deque>
+# include <vector>
 
 # ifndef _PREDICTION_
   # define _PREDICTION_
   
 class globalPrediction {
   private:
-    std :: deque <int> cnt[60];
+    std :: vector <int> cnt[60];
     int successCount, totalCount;
     double base[10];
     int mintimes[10];
@@ -72,8 +72,8 @@ class globalPrediction {
     inline void addResult(int id, bool result, bool success) {
       if(cnt[id].size() < 30) cnt[id].push_back(result);
       else {
-        cnt[id].pop_front();
-        cnt[id].push_back(result);
+        for (int i=1; i<30; ++i) cnt[id][i-1] = cnt[id][i];
+        cnt[id][29] = result;
       }
       if(success) ++ successCount;
       ++ totalCount;
