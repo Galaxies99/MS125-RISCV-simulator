@@ -9,9 +9,11 @@ class globalPrediction {
     int successCount, totalCount;
     double base[10];
     int mintimes[10];
+    int callPrediction;
       
   public:
     globalPrediction() {
+      callPrediction = 0;
       successCount = totalCount = 0;
       for (int i=0; i<60; ++i) cnt[i].clear();
       base[0] = 0.30, 
@@ -39,8 +41,12 @@ class globalPrediction {
     } 
     
     bool getPrediction(int i) {
-      int length = cnt[i].size(), p[10];
-      for (int len = 6; len >= 2; -- len) {
+      int length = cnt[i].size(), p[10], from;
+      ++callPrediction; 
+      if(callPrediction <= 50000) from = 6;
+      else if(callPrediction <= 500000) from = 5;
+      else from = 3;
+      for (int len = from; len >= 2; -- len) {
         if(length < (len << 1)) continue;
         for (int j = 1; j <= len; ++j) p[j] = cnt[i][length - j];
         int cur = length - len, times = 0;
