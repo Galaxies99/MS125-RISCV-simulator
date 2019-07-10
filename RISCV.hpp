@@ -76,7 +76,7 @@
 			}
 
 			uint output() {
-			  glb.out();
+			        // glb.out();
 				return ((reg.get(10)) & 255u);
 			}
 	};
