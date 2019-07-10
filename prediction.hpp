@@ -8,6 +8,7 @@ class globalPrediction {
     std :: deque <int> cnt[60];
     int successCount, totalCount;
     double base[10];
+    int mintimes[10];
       
   public:
     globalPrediction() {
@@ -28,20 +29,31 @@ class globalPrediction {
       base[12] = 0.97,
       base[13] = 0.99,
       base[14] = 1.0;
+      mintimes[2] = 6;
+      mintimes[3] = 5;
+      mintimes[4] = 4;
+      mintimes[5] = 4;
+      mintimes[6] = 3;
+      mintimes[7] = 3;
+      mintimes[8] = mintimes[9] = 2;
     } 
     
     bool getPrediction(int i) {
-      int length = cnt[i].size(), times;
-      if(length > 6) {
-        times = 0;
-        for (int j = length - 1; j >= 2; j -= 3)
-          if(cnt[i][j] == cnt[i][length - 1] && cnt[i][j-1] == cnt[i][length - 2] && cnt[i][j-2] == cnt[i][length - 3]) ++times;
-        if(times > 5) return cnt[i][length - 3];
-        
-        times = 0;
-        for (int j = length - 1; j >= 1; j -= 2) 
-          if(cnt[i][j] == cnt[i][length - 1] && cnt[i][j-1] == cnt[i][length - 2]) ++times;
-        if(times > 5) return cnt[i][length - 2];
+      int length = cnt[i].size(), p[10];
+      for (int len = 6; len >= 2; -- len) {
+        if(length < (len << 1)) continue;
+        for (int j = 1; j <= len; ++j) p[j] = cnt[i][length - j];
+        int cur = length - len, times = 0;
+        while(cur >= len) {
+          bool ok = 1;
+          for (int j = 1; j <= len; ++j)
+            if(p[j] != cnt[i][cur - j]) { ok = 0; break; }
+          if(ok) {
+            ++times;
+            cur -= len;
+          } else -- cur;
+        }
+        if(times > mintimes[len]) return p[len];
       }
       double cntt = 0;
       for (int j = length - 1; j >= 0 && j >= length - 15; --j)

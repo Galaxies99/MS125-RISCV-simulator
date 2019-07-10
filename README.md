@@ -98,6 +98,8 @@ update time: 2019.7.10
 
 加入搜索循环节来分支预测
 
+仅搜索长度为2、3且循环超过5次。
+
 1. basicopt1：128895 / 155139  Accuracy 84.8633%
 2. bulgarian: 57500 / 71493 Accuracy: 82.2346%
 3. hanoi: 12839 / 17457 Accuracy: 73.5464%
@@ -107,3 +109,31 @@ update time: 2019.7.10
 7. queens: 53405 / 77116 Accuracy: 70.5535%
 8. superloop: 376805 / 435027 Accuracy: 88.5890%
 9. tak: 42972 / 60639 Accuracy: 73.9062%
+
+### v5.4.1
+
+搜索循环节2、3、4、5，参数为5、5、4、4
+
+1. basicopt1：128895 / 155139  Accuracy 92.6988%
+2. bulgarian: 57500 / 71493 Accuracy: 86.7386%
+3. hanoi: 12839 / 17457 Accuracy: 73.5350%
+4. magic: 40873 / 67869 Accuracy: 60.6369%
+5. pi: 32374472 / 39956380 Accuracy: 82.0983%
+6. qsort: 165102 / 200045 Accuracy: 87.4938%
+7. queens: 53405 / 77116 Accuracy: 73.3855%
+8. superloop: 376805 / 435027 Accuracy: 89.9825%
+9. tak: 42972 / 60639 Accuracy: 74.086%
+
+### v5.4.2
+
+搜索循环节2、3、4、5、6，参数为5、5、4、4、3
+
+1. basicopt1：128895 / 155139  Accuracy 92.6982%
+2. bulgarian: 57500 / 71493 Accuracy: 85.2629%
+3. hanoi: 12839 / 17457 Accuracy: 96.9181%
+4. magic: 40873 / 67869 Accuracy: 60.6801%
+5. pi: 32374472 / 39956380 Accuracy: 81.1564%
+6. qsort: 165102 / 200045 Accuracy: 87.7573%
+7. queens: 53405 / 77116 Accuracy: 75.0817%
+8. superloop: 376805 / 435027 Accuracy: 90.5845%
+9. tak: 42972 / 60639 Accuracy: 74.2311%
