@@ -92,3 +92,18 @@ update time: 2019.7.10
 8. superloop: 376805 / 435027 Accuracy: 86.6165%
 9. tak: 42972 / 60639 Accuracy: 70.8653%
 
+### v5.4
+
+update time: 2019.7.10
+
+加入搜索循环节来分支预测
+
+1. basicopt1：128895 / 155139  Accuracy 84.8633%
+2. bulgarian: 57500 / 71493 Accuracy: 82.2346%
+3. hanoi: 12839 / 17457 Accuracy: 73.5464%
+4. magic: 40873 / 67869 Accuracy: 61.2680%
+5. pi: 32374472 / 39956380 Accuracy: 81.9294%
+6. qsort: 165102 / 200045 Accuracy: 88.0802%
+7. queens: 53405 / 77116 Accuracy: 70.5535%
+8. superloop: 376805 / 435027 Accuracy: 88.5890%
+9. tak: 42972 / 60639 Accuracy: 73.9062%
