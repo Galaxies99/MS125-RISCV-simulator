@@ -5,18 +5,29 @@
   
 class globalPrediction {
   private:
-    vector <int> cnt[60];
+    std :: vector <int> cnt[60];
     int successCount, totalCount;
-  
+    double base[10];
+      
   public:
     globalPrediction() {
       successCount = totalCount = 0;
       for (int i=0; i<60; ++i) cnt[i].clear();
+      base[0] = 0.30, 
+      base[1] = 0.40,
+      base[2] = 0.50,
+      base[3] = 0.60,
+      base[4] = 0.73,
+      base[5] = 0.8,
+      base[6] = 0.85,
+      base[7] = 0.9,
+      base[8] = 0.95,
+      base[9] = 1.0;
     } 
     
     bool getPrediction(int id) {
-      int ccnt = 0;
-      for (int i=0; i<10 && i<cnt[id].size(); ++i) ccnt += cnt[id][i];
+      double ccnt = 0;
+      for (int i=0; i<10 && i<cnt[id].size(); ++i) ccnt += base[i] * cnt[id][i];
       if(ccnt < 0) return false;
       return true;
     } 
